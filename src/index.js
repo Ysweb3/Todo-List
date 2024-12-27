@@ -15,6 +15,16 @@ const searchBtn = document.getElementById("search-btn");
 const deleteBox = document.getElementById("delete-box");
 const deleteBtn = document.getElementById("delete-button");
 
+const editBtn = document.getElementById("edit-btn");
+
+let todoTitleEdit = document.getElementById("todo-title-edit");
+let todoDescriptionEdit = document.getElementById("todo-description-edit");
+let todoDueEdit = document.getElementById("todo-due-edit");
+let todoPriorityEdit = document.getElementById("todo-priority-edit");
+
+
+
+
 class Todos{
 
     constructor(index,title,description,due,priority){
@@ -40,7 +50,7 @@ let deleted = false;
 
 
 function addTodo(){
-    if (todoTitle.value && todoDescription.value && todoDue.value && todoPriority.value ){
+    if (todoTitle.value && todoDescription.value && todoDue.value && todoPriority.value){
 
         todoList[i] = new Todos;
         todoList[i].index = i;
@@ -86,8 +96,19 @@ function deleteTodo(){
     
 
 }
+let editBox = document.getElementById("edit-box");
+
+function editTodo(){
+    
+    todoList[editBox.value].title = todoTitleEdit.value;
+    todoList[editBox.value].description = todoDescriptionEdit.value;
+    todoList[editBox.value].due = todoDueEdit.value;
+    todoList[editBox.value].priority = todoPriorityEdit.value
+    
+}
 
 addBtn.addEventListener("click", addTodo);
 searchBtn.addEventListener("click",searchTodo);
 deleteBtn.addEventListener("click",deleteTodo);
+editBtn.addEventListener("click",editTodo);
         

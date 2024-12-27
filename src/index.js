@@ -40,21 +40,25 @@ let deleted = false;
 
 
 function addTodo(){
-    todoList[i] = new Todos;
-    todoList[i].index = i;
-    todoList[i].title = todoTitle.value;
-    todoList[i].description = todoDescription.value;
-    todoList[i].due = todoDue.value;
-    todoList[i].priority = todoPriority.value;
-    todoList[i].displayTodo();
+    if (todoTitle.value && todoDescription.value && todoDue.value && todoPriority.value ){
+
+        todoList[i] = new Todos;
+        todoList[i].index = i;
+        todoList[i].title = todoTitle.value;
+        todoList[i].description = todoDescription.value;
+        todoList[i].due = todoDue.value;
+        todoList[i].priority = todoPriority.value;
+        todoList[i].displayTodo();
     
-    if (deleted){
-        iPlaceholder++;
-        i = iPlaceholder;
+        if (deleted){
+            iPlaceholder++;
+            i = iPlaceholder;
+        }
+        else {
+            i++
+        }
     }
-    else {
-        i++
-    }
+    
        
 }
 
@@ -67,15 +71,19 @@ function searchTodo(){
 
 function deleteTodo(){
     
-    delete todoList[deleteBox.value].title;
-    delete todoList[deleteBox.value].description;
-    delete todoList[deleteBox.value].due;
-    delete todoList[deleteBox.value].priority;
+    if (deleteBox.value){
+        delete todoList[deleteBox.value].title;
+        delete todoList[deleteBox.value].description;
+        delete todoList[deleteBox.value].due;
+        delete todoList[deleteBox.value].priority;
     
-    deleted = true;
+        deleted = true;
     
-    iPlaceholder = i;
-    i = deleteBox.value;
+        iPlaceholder = i;
+        i = deleteBox.value;
+    }
+    
+    
 
 }
 

@@ -1,0 +1,9 @@
+#form-pop-container.open{
+    visibility: visible;
+    opacity: 1;
+    z-index: 999;
+}
+
+#form-pop-container{
+    visibility: hidden;
+}

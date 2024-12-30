@@ -7,13 +7,18 @@
 </head>
 <body>
     <h1>Todo List</h1>
-    <p>
-        <input type="text" id="todo-title" name="title">
-        <input type="text" id="todo-description" name="description">
-        <input type="text" id="todo-due" name="due">
-        <input type="text" id="todo-priority" name="priority">
-        <button id="add-todo">ADD</button>
-    </p>
+    <button id="form-open">TODO OPEN</button>
+    
+    <div id="form-pop-container">
+        <form action="" id="form-pop">
+            <input type="text" id="todo-title" name="title">
+            <input type="text" id="todo-description" name="description">
+            <input type="text" id="todo-due" name="due">
+            <input type="text" id="todo-priority" name="priority">
+            <button id="add-todo">ADD</button>
+            <button id="form-close">TODO CLOSE</button>
+        </form>
+    </div>    
     <p>
         <input type="text" id="search-box" name="search with index">
         <button type="button" id="search-btn">search with index</button>

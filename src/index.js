@@ -23,6 +23,21 @@ let todoDueEdit = document.getElementById("todo-due-edit");
 let todoPriorityEdit = document.getElementById("todo-priority-edit");
 
 
+const openBtn = document.getElementById("form-open");
+const closeBtn = document.getElementById("form-close");
+
+const formContainer = document.getElementById("form-pop-container")
+
+openBtn.addEventListener("click", () =>{
+    formContainer.classList.add("open");
+    // container.style.filter = "blur(3px)";
+});
+closeBtn.addEventListener("click", () =>{
+    formContainer.classList.remove("open");
+    // container.style.filter = "none";
+});
+
+
 
 
 class Todos{

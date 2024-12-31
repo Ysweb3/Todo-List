@@ -6,19 +6,15 @@
     <title>Todo-List</title>
 </head>
 <body>
-    <h1>Todo List</h1>
-    <button id="form-open">TODO OPEN</button>
-    
-    <div id="form-pop-container">
-        <form action="" id="form-pop">
-            <input type="text" id="todo-title" name="title">
-            <input type="text" id="todo-description" name="description">
-            <input type="text" id="todo-due" name="due">
-            <input type="text" id="todo-priority" name="priority">
-            <button id="add-todo">ADD</button>
-            <button id="form-close">TODO CLOSE</button>
-        </form>
-    </div>    
+    <div id="container">
+        <div id="sidebar">
+            <h1>Todo List</h1>
+            <button id="form-open">ADD NEW</button>
+        </div>
+    <div id="todos-container">
+
+    </div>
+        
     <p>
         <input type="text" id="search-box" name="search with index">
         <button type="button" id="search-btn">search with index</button>
@@ -36,7 +32,18 @@
         <input type="text" id="todo-priority-edit" name="priority-edit">
         <input type="text" style="background-color: rgb(234, 158, 158);" id="edit-box" name="edit with index">
         <button type="button" id="edit-btn">Edit with index</button>
-    </p>
+    </p> 
+</div>
+<div id="form-pop-container">
+    <form action="" id="form-pop">
+        <input type="text" id="todo-title" name="title">
+        <input type="text" id="todo-description" name="description">
+        <input type="text" id="todo-due" name="due">
+        <input type="text" id="todo-priority" name="priority">
+        <button type="button" id="add-todo">ADD</button>
+        <button type="button" id="form-close">TODO CLOSE</button>
+    </form>
+</div>    
 
 </body>
 </html>

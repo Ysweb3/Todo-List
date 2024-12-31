@@ -8,6 +8,7 @@ let todoTitle = document.getElementById("todo-title");
 let todoDescription = document.getElementById("todo-description");
 let todoDue = document.getElementById("todo-due");
 let todoPriority = document.getElementById("todo-priority");
+const todosContainer = document.getElementById("todos-container")
 
 const searchBox = document.getElementById("search-box");
 const searchBtn = document.getElementById("search-btn");
@@ -51,6 +52,12 @@ class Todos{
     }
 
     displayTodo(){
+        const todo = document.createElement("div");
+        todo.className = "todo"
+        todo.id = this.index;
+        todo.textContent = this.index +"yAH "+ this.title;
+
+        todosContainer.appendChild(todo);
         console.log(this.index);
         console.log(this.title);
         console.log(this.description);

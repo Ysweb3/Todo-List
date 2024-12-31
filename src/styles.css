@@ -1,9 +1,45 @@
+*{
+    margin: 0px;
+}
+
+body{
+    display: flex;
+    flex-direction: row;
+}
+#sidebar{
+    display: flex;
+    flex-direction: column;
+    height: 1000px;
+    width: 200px;
+    margin-right: 20px;
+    margin-left: 20px;
+    border-right: 4px black solid;
+}
+
+#form-open{
+    width: 50px;
+}
+#form-pop-container{
+    position: absolute;
+    height: 400px;
+    width: 600px;
+    left: 30%;
+    top: 20%;
+    border: 2px solid black;
+}
 #form-pop-container.open{
     visibility: visible;
     opacity: 1;
     z-index: 999;
+    margin: 20px;
+    
 }
-
 #form-pop-container{
     visibility: hidden;
+}
+#container{
+    display: flex;
+   
+    flex-direction: row;
+
 }

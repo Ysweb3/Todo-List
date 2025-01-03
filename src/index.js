@@ -59,7 +59,8 @@ class Todos{
         const deleteBtn  = document.createElement("button");
         deleteBtn.type = "button";
         deleteBtn.textContent = "Delete"
-        deleteBtn.addEventListener("click",deleteTodo(this.index));
+
+        deleteBtn.addEventListener("click",deleteTodo);
         todo.appendChild(deleteBtn);
 
         todosContainer.appendChild(todo);
@@ -98,7 +99,7 @@ function addTodo(){
         todoList[i].due = todoDue.value;
         todoList[i].priority = todoPriority.value;
         todoList[i].displayTodo();
-        console.log(todoList[i].title)
+        
 
     
         if (deleted){
@@ -125,18 +126,23 @@ function searchTodo(){
     
 }
 
-function deleteTodo(index){
+function deleteTodo(e){
     
     
-        delete todoList[index].title;
-        delete todoList[index].description;
-        delete todoList[index].due;
-        delete todoList[index].priority;
-    
+        delete todoList[e.target.parentElement.id].title;
+        delete todoList[e.target.parentElement.id].description;
+        delete todoList[e.target.parentElement.id].due;
+        delete todoList[e.target.parentElement.id].priority;
+
+        console.log("deleting id "+e.target.parentElement.id);
+        
+        let element = document.getElementById(e.target.parentElement.id);
+        element.remove();
+
         deleted = true;
-    
+
         iPlaceholder = i;
-        i = index;
+        i = e.target.parentElement.id;
 
         
     

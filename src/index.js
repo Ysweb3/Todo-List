@@ -14,7 +14,7 @@ const searchBox = document.getElementById("search-box");
 const searchBtn = document.getElementById("search-btn");
 
 const deleteBox = document.getElementById("delete-box");
-const deleteBtn = document.getElementById("delete-button");
+
 
 const editBtn = document.getElementById("edit-btn");
 
@@ -55,14 +55,32 @@ class Todos{
         const todo = document.createElement("div");
         todo.className = "todo"
         todo.id = this.index;
-        todo.textContent = this.index +"yAH "+ this.title;
+        todo.textContent = this.index +" "+ this.title +" "+ this.description +" "+ this.due +" "+ this.priority;
+        const deleteBtn  = document.createElement("button");
+        deleteBtn.type = "button";
+        deleteBtn.textContent = "Delete"
+        deleteBtn.addEventListener("click",deleteTodo(this.index));
+        todo.appendChild(deleteBtn);
 
         todosContainer.appendChild(todo);
-        console.log(this.index);
-        console.log(this.title);
-        console.log(this.description);
-        console.log(this.due);
-        console.log(this.priority);
+
+        printTodos()
+        // console.log(this.index);
+        // console.log(this.title);
+        // console.log(this.description);
+        // console.log(this.due);
+        // console.log(this.priority);
+    }
+}
+
+function printTodos(){
+    for (let index = 0; index < todoList.length; index++) {
+        console.log(todoList[index].index);
+        console.log(todoList[index].title);
+        console.log(todoList[index].description);
+        console.log(todoList[index].due);
+        console.log(todoList[index].priority);
+        
     }
 }
 let todoList = [];
@@ -73,7 +91,6 @@ let deleted = false;
 
 function addTodo(){
     if (todoTitle.value && todoDescription.value && todoDue.value && todoPriority.value){
-
         todoList[i] = new Todos;
         todoList[i].index = i;
         todoList[i].title = todoTitle.value;
@@ -81,6 +98,8 @@ function addTodo(){
         todoList[i].due = todoDue.value;
         todoList[i].priority = todoPriority.value;
         todoList[i].displayTodo();
+        console.log(todoList[i].title)
+
     
         if (deleted){
             iPlaceholder++;
@@ -89,6 +108,11 @@ function addTodo(){
         else {
             i++
         }
+        formContainer.classList.remove("open");
+        todoTitle.value = "";
+        todoDescription.value = "";
+        todoDue.value = "";
+        todoPriority.value = "";
     }
     
        
@@ -101,19 +125,20 @@ function searchTodo(){
     
 }
 
-function deleteTodo(){
+function deleteTodo(index){
     
-    if (deleteBox.value){
-        delete todoList[deleteBox.value].title;
-        delete todoList[deleteBox.value].description;
-        delete todoList[deleteBox.value].due;
-        delete todoList[deleteBox.value].priority;
+    
+        delete todoList[index].title;
+        delete todoList[index].description;
+        delete todoList[index].due;
+        delete todoList[index].priority;
     
         deleted = true;
     
         iPlaceholder = i;
-        i = deleteBox.value;
-    }
+        i = index;
+
+        
     
     
 
@@ -131,6 +156,6 @@ function editTodo(){
 
 addBtn.addEventListener("click", addTodo);
 searchBtn.addEventListener("click",searchTodo);
-deleteBtn.addEventListener("click",deleteTodo);
+
 editBtn.addEventListener("click",editTodo);
         

@@ -13,9 +13,6 @@ const todosContainer = document.getElementById("todos-container")
 const searchBox = document.getElementById("search-box");
 const searchBtn = document.getElementById("search-btn");
 
-const deleteBox = document.getElementById("delete-box");
-
-
 const editBtn = document.getElementById("edit-btn");
 
 let todoTitleEdit = document.getElementById("todo-title-edit");
@@ -38,11 +35,7 @@ closeBtn.addEventListener("click", () =>{
     // container.style.filter = "none";
 });
 
-
-
-
 class Todos{
-
     constructor(index,title,description,due,priority){
         this.index = index;
         this.title = title;
@@ -66,11 +59,6 @@ class Todos{
         todosContainer.appendChild(todo);
 
         printTodos()
-        // console.log(this.index);
-        // console.log(this.title);
-        // console.log(this.description);
-        // console.log(this.due);
-        // console.log(this.priority);
     }
 }
 
@@ -88,10 +76,20 @@ let todoList = [];
 let i = 0;
 let iPlaceholder = 0;
 let deleted = false;
-
+        //Sample TODO
+        todoList[i] = new Todos;
+        todoList[i].index = i;
+        todoList[i].title = "Sample";
+        todoList[i].description = "Sample";
+        todoList[i].due = "Sample";
+        todoList[i].priority = "Sample";
+        todoList[i].displayTodo();
 
 function addTodo(){
     if (todoTitle.value && todoDescription.value && todoDue.value && todoPriority.value){
+        iPlaceholder = i;
+        i = checkUndefined();
+        console.log(i);
         todoList[i] = new Todos;
         todoList[i].index = i;
         todoList[i].title = todoTitle.value;
@@ -99,36 +97,39 @@ function addTodo(){
         todoList[i].due = todoDue.value;
         todoList[i].priority = todoPriority.value;
         todoList[i].displayTodo();
-        
 
-    
-        if (deleted){
-            iPlaceholder++;
-            i = iPlaceholder;
-        }
-        else {
-            i++
-        }
         formContainer.classList.remove("open");
         todoTitle.value = "";
         todoDescription.value = "";
         todoDue.value = "";
         todoPriority.value = "";
     }
-    
-       
 }
+
+function checkUndefined() {
+    for (let index = 0; index < todoList.length;index++) {
+        while(todoList[index].title == undefined) {
+            console.log("new ID undefined:" + index);
+
+            return index;
+        }
+        if(todoList[index].title != undefined){
+            let q = iPlaceholder + 1;
+            console.log("new ID plus:"+ q);
+            return q; 
+        }
+
+    }
+}
+
 
 function searchTodo(){
     if (searchBox.value){
         todoList[searchBox.value].displayTodo();
     }
-    
 }
 
 function deleteTodo(e){
-    
-    
         delete todoList[e.target.parentElement.id].title;
         delete todoList[e.target.parentElement.id].description;
         delete todoList[e.target.parentElement.id].due;
@@ -138,17 +139,8 @@ function deleteTodo(e){
         
         let element = document.getElementById(e.target.parentElement.id);
         element.remove();
-
-        deleted = true;
-
-        iPlaceholder = i;
-        i = e.target.parentElement.id;
-
-        
-    
-    
-
 }
+
 let editBox = document.getElementById("edit-box");
 
 function editTodo(){

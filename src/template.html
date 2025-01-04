@@ -34,14 +34,31 @@
         <button type="button" id="edit-btn">Edit with index</button>
     </p>  -->
 </div>
-<div id="form-pop-container">
+<div id="form-pop-container">  
+    <div id="form-header">
+        <h2>Add New Todo</h2>
+        <button type="button" id="form-close">X</button>
+    </div>
     <form action="" id="form-pop">
-        <input type="text" id="todo-title" name="title">
-        <input type="text" id="todo-description" name="description">
-        <input type="text" id="todo-due" name="due">
-        <input type="text" id="todo-priority" name="priority">
-        <button type="button" id="add-todo">ADD</button>
-        <button type="button" id="form-close">TODO CLOSE</button>
+        <div class="inputs">
+            <label for="title">Enter title </label>
+            <input type="text" id="todo-title" name="title">
+
+            <label for="description">Enter description</label>
+            <textarea id="todo-description" name="description"></textarea>
+        </div>  
+        <div class="inputs">
+            
+            <label for="due">Enter due date</label>
+            <input type="text" id="todo-due" name="due">
+
+            <label for="priority">Set priority</label>
+            <input type="text" id="todo-priority" name="priority">
+        </div>
+        <div>
+            <button type="button" id="add-todo">ADD</button>
+        </div>
+        
     </form>
 </div>    
 

@@ -5,6 +5,7 @@
 body{
     display: flex;
     flex-direction: row;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 #sidebar{
     display: flex;
@@ -109,4 +110,17 @@ label{
     height: 200px;
     width: 200px;
     border: 2px solid black;
+}
+.desc{
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    height: 400px;
+    width: 600px;
+    left: 50%;
+    top: 40%;
+    border: 2px solid black;
+    font-size: 30px;
 }

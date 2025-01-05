@@ -34,7 +34,7 @@ closeBtn.addEventListener("click", () =>{
     formContainer.classList.remove("open");
     // container.style.filter = "none";
 });
-
+let descContent = "";
 class Todos{
     constructor(index,title,description,due,priority){
         this.index = index;
@@ -48,7 +48,38 @@ class Todos{
         const todo = document.createElement("div");
         todo.className = "todo"
         todo.id = this.index;
-        todo.textContent = this.index +" "+ this.title +" "+ this.description +" "+ this.due +" "+ this.priority;
+        todosContainer.appendChild(todo);
+
+        const index = document.createElement("p");
+        index.className = "index";
+        index.textContent = this.index;
+        todo.appendChild(index);
+
+        const title = document.createElement("p");
+        title.className = "title";
+        title.textContent = this.title;
+        todo.appendChild(title); 
+        
+        const priority = document.createElement("p");
+        priority.className = "priority";
+        priority.textContent = this.priority;
+        todo.appendChild(priority);
+
+        const due = document.createElement("p");
+        due.className = "due";
+        due.textContent = this.due;
+        todo.appendChild(due);
+        
+        const openDescBtn = document.createElement("button");
+        openDescBtn.type = "button";
+        openDescBtn.textContent = "Info"
+        descContent = this.description;
+        todo.appendChild(openDescBtn);
+        openDescBtn.addEventListener("click",openDesc)
+
+
+
+// todo.textContent = this.index +" "+ this.title +" "+ this.description +" "+ this.due +" "+ this.priority;
         const deleteBtn  = document.createElement("button");
         deleteBtn.type = "button";
         deleteBtn.textContent = "Delete"
@@ -56,11 +87,38 @@ class Todos{
         deleteBtn.addEventListener("click",deleteTodo);
         todo.appendChild(deleteBtn);
 
-        todosContainer.appendChild(todo);
+        
 
         printTodos()
     }
 }
+let desc = "";
+function openDesc(e){
+    desc = document.createElement("div");
+    desc.className = "desc";
+    desc.id = todoList[e.target.parentElement.id].id;
+    desc.textContent = todoList[e.target.parentElement.id].description;
+    
+    todosContainer.appendChild(desc);
+    
+
+    const descCloseBtn = document.createElement("button");
+    descCloseBtn.type = "button";
+    descCloseBtn.textContent = "X"
+    desc.appendChild(descCloseBtn);
+    descCloseBtn.addEventListener("click",removeDesc);
+
+    
+
+    // console.log(todoList[e.target.parentElement.id].description);
+}
+
+function removeDesc(e){
+    let element = document.getElementById(desc.id);
+        element.remove();
+}
+
+
 
 function printTodos(){
     for (let index = 0; index < todoList.length; index++) {
@@ -68,8 +126,7 @@ function printTodos(){
         console.log(todoList[index].title);
         console.log(todoList[index].description);
         console.log(todoList[index].due);
-        console.log(todoList[index].priority);
-        
+        console.log(todoList[index].priority);        
     }
 }
 let todoList = [];
@@ -79,9 +136,9 @@ let deleted = false;
         //Sample TODO
         todoList[i] = new Todos;
         todoList[i].index = i;
-        todoList[i].title = "Sample";
-        todoList[i].description = "Sample";
-        todoList[i].due = "Sample";
+        todoList[i].title = "Sample Title";
+        todoList[i].description = "Sample Description";
+        todoList[i].due = "31/12/2025";
         todoList[i].priority = "Sample";
         todoList[i].displayTodo();
 

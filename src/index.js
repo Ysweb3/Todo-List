@@ -34,13 +34,19 @@ closeBtn.addEventListener("click", () =>{
     formContainer.classList.remove("open");
     // container.style.filter = "none";
 });
+
+// localStorage.clear();
+// localStorage.setItem("totalItems",0);
+
+
+
 let descContent = "";
 class Todos{
     constructor(index,title,description,due,priority){
         this.index = index;
         this.title = title;
         this.description = description;
-        this.due = due;
+        this.due = due;                 
         this.priority = priority;
     }
 
@@ -69,18 +75,17 @@ class Todos{
         due.className = "due";
         due.textContent = this.due;
         todo.appendChild(due);
-        
+
         const openDescBtn = document.createElement("button");
         openDescBtn.type = "button";
         openDescBtn.textContent = "Info"
+        
+
         descContent = this.description;
         todo.appendChild(openDescBtn);
         openDescBtn.addEventListener("click",openDesc)
-
-
-
-// todo.textContent = this.index +" "+ this.title +" "+ this.description +" "+ this.due +" "+ this.priority;
         const deleteBtn  = document.createElement("button");
+        deleteBtn.id = "delete-button"
         deleteBtn.type = "button";
         deleteBtn.textContent = "Delete"
 
@@ -88,6 +93,7 @@ class Todos{
         todo.appendChild(deleteBtn);
 
         
+
 
         printTodos()
     }
@@ -108,12 +114,9 @@ function openDesc(e){
     desc.appendChild(descCloseBtn);
     descCloseBtn.addEventListener("click",removeDesc);
 
-    
-
-    // console.log(todoList[e.target.parentElement.id].description);
 }
 
-function removeDesc(e){
+function removeDesc(){
     let element = document.getElementById(desc.id);
         element.remove();
 }
@@ -133,19 +136,25 @@ let todoList = [];
 let i = 0;
 let iPlaceholder = 0;
 let deleted = false;
-        //Sample TODO
-        todoList[i] = new Todos;
-        todoList[i].index = i;
-        todoList[i].title = "Sample Title";
-        todoList[i].description = "Sample Description";
-        todoList[i].due = "31/12/2025";
-        todoList[i].priority = "Sample";
-        todoList[i].displayTodo();
+       
 
+
+
+let localItems = localStorage.getItem("totalItems");
+//  // Sample TODO
+//  todoList[i] = new Todos;
+//  todoList[i].index = i;
+//  todoList[i].title = "Sample Title";
+//  todoList[i].description = "Sample Description";
+//  todoList[i].due = "31/12/2025";
+//  todoList[i].priority = "Sample Priority";
+//  populateLocalStorage(i);
 function addTodo(){
     if (todoTitle.value && todoDescription.value && todoDue.value && todoPriority.value){
-        iPlaceholder = i;
-        i = checkUndefined();
+        // iPlaceholder = i;
+        // i = checkUndefined();
+        i = localItems;
+        console.log(localItems);
         console.log(i);
         todoList[i] = new Todos;
         todoList[i].index = i;
@@ -154,7 +163,7 @@ function addTodo(){
         todoList[i].due = todoDue.value;
         todoList[i].priority = todoPriority.value;
         todoList[i].displayTodo();
-
+        populateLocalStorage(i);
         formContainer.classList.remove("open");
         todoTitle.value = "";
         todoDescription.value = "";
@@ -163,8 +172,49 @@ function addTodo(){
     }
 }
 
+function populateLocalStorage(i){
+    
+    localItems++;
+    
+    console.log("LOCAK ITEMS "+localItems);
+    console.log("I= "+ i);
+    localStorage.setItem("title."+i, todoList[i].title);
+    localStorage.setItem("description."+i, todoList[i].description);
+    localStorage.setItem("due."+i, todoList[i].due);
+    localStorage.setItem("priority."+i, todoList[i].priority);
+    localStorage.setItem("totalItems",localItems);
+    
+}
+
+function RemoveLocalStorage(i){
+    localStorage.removeItem("title."+i);
+    localStorage.removeItem("description."+i);
+    localStorage.removeItem("due."+i);
+    localStorage.removeItem("priority."+i);
+    localItems--;
+    localStorage.setItem("totalItems",localItems);
+}
+
+function populatePage(){
+    let item = localStorage.getItem("title.0");
+    console.log(item)
+    if (item != null) {
+        for (let q = 0; q < localItems; q++) {
+            console.log("THJIS IS I "+i);
+            todoList[q] = new Todos;
+            todoList[q].index = q;
+            todoList[q].title = localStorage.getItem("title."+q)
+            todoList[q].description = localStorage.getItem("description."+q);
+            todoList[q].due = localStorage.getItem("due."+q);
+            todoList[q].priority = localStorage.getItem("priority."+q)
+            todoList[q].displayTodo();
+        }
+    }
+}
+
+
 function checkUndefined() {
-    for (let index = 0; index < todoList.length;index++) {
+    for (let index = 1; index < todoList.length;index++) {
         while(todoList[index].title == undefined) {
             console.log("new ID undefined:" + index);
 
@@ -192,6 +242,7 @@ function deleteTodo(e){
         delete todoList[e.target.parentElement.id].due;
         delete todoList[e.target.parentElement.id].priority;
 
+        RemoveLocalStorage(e.target.parentElement.id);
         console.log("deleting id "+e.target.parentElement.id);
         
         let element = document.getElementById(e.target.parentElement.id);
@@ -208,9 +259,36 @@ function editTodo(){
     todoList[editBox.value].priority = todoPriorityEdit.value
     
 }
+function storageAvailable(type) {
+    let storage;
+    try {
+      storage = window[type];
+      const x = "__storage_test__";
+      storage.setItem(x, x);
+      storage.removeItem(x);
+      return true;
+    } catch (e) {
+      return (
+        e instanceof DOMException &&
+        e.name === "QuotaExceededError" &&
+        // acknowledge QuotaExceededError only if there's something already stored
+        storage &&
+        storage.length !== 0
+      );
+    }
+  }
+  if (storageAvailable("localStorage")) {
+    // Yippee! We can use localStorage awesomeness
+    console.log("Yippee!")
+  } else {
+    // Too bad, no localStorage for us
+    console.log("RAAAAA")
+  }
+    
+populatePage();
 
 addBtn.addEventListener("click", addTodo);
 searchBtn.addEventListener("click",searchTodo);
 
-editBtn.addEventListener("click",editTodo);
+// editBtn.addEventListener("click",editTodo); ADD EDIT Btn
         

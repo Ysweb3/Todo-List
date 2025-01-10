@@ -115,12 +115,24 @@ label{
     position: absolute;
     display: flex;
     justify-content: center;
+    flex-direction: column;
     align-items: center;
     z-index: 999;
-    height: 400px;
-    width: 600px;
-    left: 50%;
-    top: 40%;
+    height: 200px;
+    width: 300px;
+    left: 40%;
+    top: 30%;
+    background-color: rgb(132, 128, 128);
     border: 2px solid black;
-    font-size: 30px;
+    font-size: 20px;
+
+}
+/* fix delete button to auto cut */
+#delete-button{
+    position:static;
+    
+
+}
+button:hover{
+    cursor:pointer;
 }

@@ -24,15 +24,17 @@ let todoPriorityEdit = document.getElementById("todo-priority-edit");
 const openBtn = document.getElementById("form-open");
 const closeBtn = document.getElementById("form-close");
 
+const containerBlur = document.getElementById("container");
 const formContainer = document.getElementById("form-pop-container")
+
 
 openBtn.addEventListener("click", () =>{
     formContainer.classList.add("open");
-    // container.style.filter = "blur(3px)";
+    containerBlur.style.filter = "blur(3px)";
 });
 closeBtn.addEventListener("click", () =>{
     formContainer.classList.remove("open");
-    // container.style.filter = "none";
+    containerBlur.style.filter = "none";
 });
 
     // localStorage.clear();
@@ -164,6 +166,7 @@ function addTodo(){
         todoList[i].displayTodo();
         populateLocalStorage(i);
         formContainer.classList.remove("open");
+        containerBlur.style.filter = "none";
         todoTitle.value = "";
         todoDescription.value = "";
         todoDue.value = "";

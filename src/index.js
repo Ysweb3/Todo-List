@@ -35,8 +35,8 @@ closeBtn.addEventListener("click", () =>{
     // container.style.filter = "none";
 });
 
-// localStorage.clear();
-// localStorage.setItem("totalItems",0);
+    // localStorage.clear();
+    // localStorage.setItem("totalItems",0);
 
 
 
@@ -51,6 +51,7 @@ class Todos{
     }
 
     displayTodo(){
+        if (this.title != null){
         const todo = document.createElement("div");
         todo.className = "todo"
         todo.id = this.index;
@@ -92,10 +93,8 @@ class Todos{
         deleteBtn.addEventListener("click",deleteTodo);
         todo.appendChild(deleteBtn);
 
-        
-
-
         printTodos()
+        }
     }
 }
 let desc = "";
@@ -169,6 +168,7 @@ function addTodo(){
         todoDescription.value = "";
         todoDue.value = "";
         todoPriority.value = "";
+        
     }
 }
 
@@ -191,15 +191,27 @@ function RemoveLocalStorage(i){
     localStorage.removeItem("description."+i);
     localStorage.removeItem("due."+i);
     localStorage.removeItem("priority."+i);
-    localItems--;
-    localStorage.setItem("totalItems",localItems);
+
+}
+function findIndex(){
+    // for(let j = 0; j < 100; j++){
+    //     try{
+    //     if (todoList[j].title != null ) {
+    //         console.log("index for display");
+    //         return j;
+    //     }
+    // }catch(e){
+    //     //BlA BLAH
+    // }
+    
 }
 
 function populatePage(){
-    let item = localStorage.getItem("title.0");
-    console.log(item)
-    if (item != null) {
-        for (let q = 0; q < localItems; q++) {
+    let checkItem = localStorage.getItem("title.0");
+    let q;
+    console.log("index = "+q)
+    if (localItems > 0) {
+        for (q = 0; q <= localItems; q++) {
             console.log("THJIS IS I "+i);
             todoList[q] = new Todos;
             todoList[q].index = q;

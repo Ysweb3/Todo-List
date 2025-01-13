@@ -1,32 +1,24 @@
 import "./styles.css";
-// new todo created 
-// delete property title 
-// new todo created with previous deleted property first filled 
+
+//Add edit feature with info button
 
 const addBtn = document.getElementById("add-todo");
-let todoTitle = document.getElementById("todo-title");
-let todoDescription = document.getElementById("todo-description");
-let todoDue = document.getElementById("todo-due");
-let todoPriority = document.getElementById("todo-priority");
+const todoTitle = document.getElementById("todo-title");
+const todoDescription = document.getElementById("todo-description");
+const todoDue = document.getElementById("todo-due");
+const todoPriority = document.getElementById("todo-priority");
 const todosContainer = document.getElementById("todos-container")
 
 const searchBox = document.getElementById("search-box");
 const searchBtn = document.getElementById("search-btn");
 
-const editBtn = document.getElementById("edit-btn");
-
-let todoTitleEdit = document.getElementById("todo-title-edit");
-let todoDescriptionEdit = document.getElementById("todo-description-edit");
-let todoDueEdit = document.getElementById("todo-due-edit");
-let todoPriorityEdit = document.getElementById("todo-priority-edit");
-
+// const editBtn = document.getElementById("edit-btn");
 
 const openBtn = document.getElementById("form-open");
 const closeBtn = document.getElementById("form-close");
 
 const containerBlur = document.getElementById("container");
 const formContainer = document.getElementById("form-pop-container")
-
 
 openBtn.addEventListener("click", () =>{
     formContainer.classList.add("open");
@@ -37,12 +29,14 @@ closeBtn.addEventListener("click", () =>{
     containerBlur.style.filter = "none";
 });
 
-    // localStorage.clear();
-    // localStorage.setItem("totalItems",0);
+// localStorage.clear();
+// localStorage.setItem("totalItems",0);
 
+let todoList = [];
+let i = 0;
+let localItems = localStorage.getItem("totalItems");
+let desc = "";
 
-
-let descContent = "";
 class Todos{
     constructor(index,title,description,due,priority){
         this.index = index;
@@ -51,7 +45,6 @@ class Todos{
         this.due = due;                 
         this.priority = priority;
     }
-
     displayTodo(){
         if (this.title != null){
         const todo = document.createElement("div");
@@ -83,8 +76,6 @@ class Todos{
         openDescBtn.type = "button";
         openDescBtn.textContent = "Info"
         
-
-        descContent = this.description;
         todo.appendChild(openDescBtn);
         openDescBtn.addEventListener("click",openDesc)
         const deleteBtn  = document.createElement("button");
@@ -99,7 +90,6 @@ class Todos{
         }
     }
 }
-let desc = "";
 function openDesc(e){
     desc = document.createElement("div");
     desc.className = "desc";
@@ -108,7 +98,6 @@ function openDesc(e){
     
     todosContainer.appendChild(desc);
     
-
     const descCloseBtn = document.createElement("button");
     descCloseBtn.type = "button";
     descCloseBtn.textContent = "X"
@@ -122,8 +111,6 @@ function removeDesc(){
         element.remove();
 }
 
-
-
 function printTodos(){
     for (let index = 0; index < todoList.length; index++) {
         console.log(todoList[index].index);
@@ -133,30 +120,10 @@ function printTodos(){
         console.log(todoList[index].priority);        
     }
 }
-let todoList = [];
-let i = 0;
-let iPlaceholder = 0;
-let deleted = false;
-       
 
-
-
-let localItems = localStorage.getItem("totalItems");
-//  // Sample TODO
-//  todoList[i] = new Todos;
-//  todoList[i].index = i;
-//  todoList[i].title = "Sample Title";
-//  todoList[i].description = "Sample Description";
-//  todoList[i].due = "31/12/2025";
-//  todoList[i].priority = "Sample Priority";
-//  populateLocalStorage(i);
 function addTodo(){
     if (todoTitle.value && todoDescription.value && todoDue.value && todoPriority.value){
-        // iPlaceholder = i;
-        // i = checkUndefined();
         i = localItems;
-        console.log(localItems);
-        console.log(i);
         todoList[i] = new Todos;
         todoList[i].index = i;
         todoList[i].title = todoTitle.value;
@@ -176,11 +143,7 @@ function addTodo(){
 }
 
 function populateLocalStorage(i){
-    
     localItems++;
-    
-    console.log("LOCAK ITEMS "+localItems);
-    console.log("I= "+ i);
     localStorage.setItem("title."+i, todoList[i].title);
     localStorage.setItem("description."+i, todoList[i].description);
     localStorage.setItem("due."+i, todoList[i].due);
@@ -196,26 +159,11 @@ function RemoveLocalStorage(i){
     localStorage.removeItem("priority."+i);
 
 }
-function findIndex(){
-    // for(let j = 0; j < 100; j++){
-    //     try{
-    //     if (todoList[j].title != null ) {
-    //         console.log("index for display");
-    //         return j;
-    //     }
-    // }catch(e){
-    //     //BlA BLAH
-    // }
-    
-}
 
 function populatePage(){
-    let checkItem = localStorage.getItem("title.0");
     let q;
-    console.log("index = "+q)
     if (localItems > 0) {
         for (q = 0; q <= localItems; q++) {
-            console.log("THJIS IS I "+i);
             todoList[q] = new Todos;
             todoList[q].index = q;
             todoList[q].title = localStorage.getItem("title."+q)
@@ -226,24 +174,6 @@ function populatePage(){
         }
     }
 }
-
-
-function checkUndefined() {
-    for (let index = 1; index < todoList.length;index++) {
-        while(todoList[index].title == undefined) {
-            console.log("new ID undefined:" + index);
-
-            return index;
-        }
-        if(todoList[index].title != undefined){
-            let q = iPlaceholder + 1;
-            console.log("new ID plus:"+ q);
-            return q; 
-        }
-
-    }
-}
-
 
 function searchTodo(){
     if (searchBox.value){
@@ -264,16 +194,6 @@ function deleteTodo(e){
         element.remove();
 }
 
-let editBox = document.getElementById("edit-box");
-
-function editTodo(){
-    
-    todoList[editBox.value].title = todoTitleEdit.value;
-    todoList[editBox.value].description = todoDescriptionEdit.value;
-    todoList[editBox.value].due = todoDueEdit.value;
-    todoList[editBox.value].priority = todoPriorityEdit.value
-    
-}
 function storageAvailable(type) {
     let storage;
     try {
@@ -304,6 +224,3 @@ populatePage();
 
 addBtn.addEventListener("click", addTodo);
 searchBtn.addEventListener("click",searchTodo);
-
-// editBtn.addEventListener("click",editTodo); ADD EDIT Btn
-        
